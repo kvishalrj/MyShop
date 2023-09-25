@@ -12,6 +12,7 @@ def index(request):
     allProds = []
     catprods = Product.objects.values('category', 'id')
     cats = {item['category'] for item in catprods}
+    # print(cats)
     for cat in cats:
         prod = Product.objects.filter(category=cat)
         n = len(prod)
@@ -28,16 +29,18 @@ def about(request):
     return render(request, 'shop/about.html')
 
 def contact(request):
-    return HttpResponse("shop contact")
+    return render(request, 'shop/contact.html')
 
 def tracker(request):
-    return HttpResponse("shop tracker")
+    return render(request, 'shop/tracker.html')
 
 def search(request):
-    return HttpResponse("shop search")
+    return render(request, 'shop/search.html')
 
-def productView(request):
-    return HttpResponse("shop productView")
+def productView(request, myid):
+    # Fetch the product using the id
+    product = Product.objects.filter(id=myid)
+    return render(request, 'shop/prodView.html', {'product':product[0]})
 
 def checkout(request):
-    return HttpResponse("shop checkout")
+    return render(request, 'shop/checkout.html')
