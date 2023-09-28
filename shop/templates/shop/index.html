@@ -118,7 +118,6 @@ padding-right: 0;
   }
   else {
     cart = JSON.parse(localStorage.getItem('cart'));
-    document.getElementById('cart').innerHTML = Object.keys(cart).length;
     updateCart(cart);
   }
 
@@ -139,15 +138,26 @@ padding-right: 0;
 //   updatePopover(cart);
 // })
 
+function clearCart(){
+  cart = JSON.parse(localStorage.getItem('cart'));
+  for (var item in cart){
+    document.getElementById('div' + item).innerHTML = '<button id="'+ item +'" class="btn btn-primary cart">Add to Cart</button>'
+  }
+  localStorage.clear();
+  cart = {};
+  updateCart(cart);
+
+}
+
   function updateCart(cart) {
+    var sum = 0;
     for (var item in cart) {
+      sum = sum + cart[item];
       document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "'class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
     }
     localStorage.setItem('cart', JSON.stringify(cart));
-    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    document.getElementById('cart').innerHTML = sum;
     updatePopover(cart);
-    $('#popcart').click();
-    $('#popcart').click();
   }
 
   // if the plus or minus button is clicked
@@ -180,8 +190,11 @@ padding-right: 0;
       popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 20) + "...Qty: " + cart[item] + '<br>';
       i = i + 1
     }
-    popStr = popStr + "</div>"
+  
+    popStr = popStr + "</div> <div class='mt-3 mb-2'> <a href='/shop/checkout' class='bg-success m-2 p-2 text-white rounded font-weight-bold'>Checkout</a> <a href='' class='bg-success m-2 p-2 text-white rounded font-weight-bold'>Clear Cart</a> </div>";
+
     document.getElementById('popcart').setAttribute('data-content', popStr);
+    // $('#popcart').popover('show');
 
   }
 
