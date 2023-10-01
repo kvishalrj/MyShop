@@ -4,13 +4,15 @@
 
 {% block body %}
 
+{% load static %}
+
 <div class="container">
   <div class="col my-4">
-
     <h2>Step 1 - MyShop Express Checkout - Review Your Cart Items</h2>
 
     <div>
       <ul id="items" class="list-group list-group-numbered">
+        <!-- Your Cart Is Empty...! -->
       </ul>
     </div>
 
@@ -18,41 +20,44 @@
 
   <div class="col my-4">
     <h2>Step - 2 - Enter Address & Other Details</h2>
-    <form class="row g-3">
+    <form class="row g-3" method="post" action="/shop/checkout/">
+      {% csrf_token %}
+      <input type="hidden" name="itemsJson" id="itemsJson">
       <div class="col-md-6">
         <label for="inputName" class="form-label">Name</label>
-        <input type="name" class="form-control" id="inputName" placeholder="Name">
+        <input type="text" class="form-control" id="inputName" placeholder="Name" name="name">
       </div>
       <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Email</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email">
       </div>
       <div class="col-12">
-        <label for="inputAddress" class="form-label">Address</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+        <label for="inputAddress" class="form-label">Address 1</label>
+        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address1">
       </div>
       <div class="col-12">
         <label for="inputAddress2" class="form-label">Address 2</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="address2">
       </div>
       <div class="col-md-6">
-        <label for="inputCity" class="form-label">City</label>
-        <input type="text" class="form-control" id="inputCity" placeholder="City">
+        <label for="inputState" class="form-label">State</label>
+        <input type="text" class="form-control" id="inputState" placeholder="State" name="state">
       </div>
       <div class="col-md-4">
-        <label for="inputState" class="form-label">State</label>
-        <input type="text" class="form-control" id="inputState" placeholder="State">
+        <label for="inputCity" class="form-label">City</label>
+        <input type="text" class="form-control" id="inputState" placeholder="City" name="city">
       </div>
       <div class="col-md-2">
         <label for="inputZip" class="form-label">Zip</label>
-        <input type="text" class="form-control" id="inputZip" placeholder="834001">
+        <input type="text" class="form-control" id="inputZip" placeholder="834001" name="zip_code">
       </div>
       <div class="col-md-2">
         <label for="inputPphone" class="form-label">Phone</label>
-        <input type="phone" class="form-control" id="inputPhone" placeholder="9999999999">
+        <input type="phone" class="form-control" id="inputPhone" placeholder="9999999999" name="phone">
       </div>
       <div class="col-12 my-4">
         <button type="submit" class="btn btn-primary">Place Order</button>
+        <span class="text-white" id="thank">{{thank}}</span>
       </div>
     </form>
   </div>
@@ -73,15 +78,32 @@
     cart = JSON.parse(localStorage.getItem('cart'));
   }
 
-
-  for (item in cart) {
-    let qty = cart[item][0];
-    let name = cart[item][1];
-    mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">${name}<span class="badge bg-primary rounded-pill">${qty}</span></li>`
+  let sum = 0;
+  if ($.isEmptyObject(cart)) {
+    mystr = "Your Cart Is Empty...!";
     $('#items').append(mystr);
+  }
+  else {
+    for (item in cart) {
+      let qty = cart[item][0];
+      let name = cart[item][1];
+      sum = sum + qty;
+      mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">${name}<span class="badge bg-primary rounded-pill">${qty}</span></li>`
+      $('#items').append(mystr);
+
+    }
 
   }
 
+  document.getElementById('cart').innerHTML = sum;
+
+  $('#itemsJson').val(JSON.stringify(cart));
+
+  if (document.getElementById('thank').innerText == 'True'){
+    alert('Thanks for ordering with us. Your order id is {{id}}. Use it to track your order');
+    localStorage.clear();
+    document.location = "/shop";
+  }
 
 </script>
 

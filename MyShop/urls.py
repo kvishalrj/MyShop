@@ -19,9 +19,12 @@ from django.urls import path, include #self ***************
 from django.conf import settings #self ***************
 from django.conf.urls.static import static #self ************
 
+from . import views #self ************
+
 # self ********************
 
 urlpatterns = [
+    path('', views.index),
     path('admin/', admin.site.urls),
     path('shop/', include('shop.urls')),
     path('blog/', include('blog.urls'))
