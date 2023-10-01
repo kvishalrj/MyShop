@@ -1,9 +1,10 @@
 from django.shortcuts import render # self *******************
 from django.http import HttpResponse # self ****************
-from .models import Product # self ************
-from .models import Contact # self ************
-from .models import Orders # self ************
+from .models import Product, Contact, Orders, OrderUpdate # self ************
+
 from math import ceil # self ************
+
+import json
 
 # Create your views here.
 
@@ -41,6 +42,22 @@ def contact(request):
     return render(request, 'shop/contact.html')
 
 def tracker(request):
+    if request.method=="POST":
+        orderId = request.POST.get('orderId'," ")
+        email = request.POST.get('email'," ")
+        try:
+            order = Orders.objects.filter(order_id=orderId, email=email)
+            if len(order)>0:
+                update = OrderUpdate.objects.filter(order_id=orderId)
+                updates = []
+                for item in update:
+                    updates.append({'text':item.update_desc, 'time':item.timestamp})
+                    response = json.dumps(updates, default=str)
+                return HttpResponse(response)
+            else:
+                return HttpResponse('{}')
+        except Exception as e:
+            return HttpResponse('{}')
     return render(request, 'shop/tracker.html')
 
 def search(request):
@@ -63,8 +80,10 @@ def checkout(request):
         phone = request.POST.get('phone'," ")
 
         order = Orders(items_json=items_json, name=name, email=email, address=address, state=state, city=city, zip_code=zip_code, phone=phone)
-        order.save()
 
+        order.save()
+        update = OrderUpdate(order_id=order.order_id, update_desc="The order has been placed")
+        update.save()
         thank = True
         id = order.order_id
 
