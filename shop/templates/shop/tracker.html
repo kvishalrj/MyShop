@@ -34,6 +34,12 @@
       </ul>
     </div>
 
+    <h2>Your Order Details</h2>
+    <div class="my-4">
+      <ul id="citems" class="p-0">
+      </ul>
+    </div>
+
   </div>
 
 </div>
@@ -60,8 +66,9 @@
     })
 
       .done(function (data) {
-        console.log(data)
-        updates = JSON.parse(data);
+        // console.log(data)
+        data = JSON.parse(data);
+        updates = data[0];
         if (updates.length > 0 & updates != {}) {
           for (i = 0; i < updates.length; i++) {
             let text = updates[i]['text']
@@ -75,11 +82,21 @@
           $('#items').append(mystr);
         }
 
-      })
+        // Fill in the order details
+        cart = JSON.parse(data[1]);
+        console.log(cart);
+        for (item in cart) {
+      let qty = cart[item][0];
+      let name = cart[item][1];
+      mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">${name}<span class="badge bg-primary rounded-pill">${qty}</span></li>`
+      $('#citems').append(mystr);
+    }
+
+      });
 
     event.preventDefault();
 
-  })
+  });
 </script>
 
 {% endblock %}
