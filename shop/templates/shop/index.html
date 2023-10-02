@@ -172,8 +172,15 @@ padding-right: 0;
   $('.divpr').on("click", "button.minus", function () {
     a = this.id.slice(7,);
     cart['pr' + a][0] = cart['pr' + a][0] - 1;
-    cart['pr' + a][0] = Math.max(0, cart['pr' + a][0])
+    // cart['pr' + a][0] = Math.max(0, cart['pr' + a][0])
     // document.getElementById('valpr'+a).innerHTML = cart['pr'+a];
+    if (cart['pr'+a][0]==0){
+      delete cart['pr'+a];
+      document.getElementById('divpr'+a).innerHTML = '<button id="pr'+a+'" class="btn btn-primary cart">Add to Cart</button>';
+    }
+    else{
+      document.getElementById('divpr'+a).innerHTML = cart['pr'+a][0];
+    }
     updateCart(cart)
 
   });
