@@ -3,6 +3,7 @@
 {% block title %} Contact Us - MyShop {% endblock %}
 
 {% block body %}
+{% load static %}
 
 <div class="container my-3">
     <h3>Contact Us</h3>
@@ -25,8 +26,21 @@
             <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
           </div>
           <button type="submit" class="btn btn-success">Success</button>
+          <span class="text-white" id="thank">{{thank}}</span>
     </form>
 </div>
+{% endblock %}
 
+{% block js %}
+
+<script>
+
+if (document.getElementById('thank').innerText == 'True'){
+    alert('Thanks for contacting us. We will get back to you soon...!');
+    document.location = "/shop/contact";
+  }
+
+</script>
 
 {% endblock %}
+
