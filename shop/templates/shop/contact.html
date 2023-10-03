@@ -19,14 +19,14 @@
         </div>
         <div class="mb-3">
             <label for="phone" class="form-label">Phone</label>
-            <input type="phone" class="form-control" id="phone"  name="phone" placeholder="Enter Your Phone">
+            <input type="phone" class="form-control" id="phone" name="phone" placeholder="Enter Your Phone">
         </div>
         <div class="mb-3">
             <label for="desc" class="form-label">How May We Help You?</label>
             <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
-          </div>
-          <button type="submit" class="btn btn-success">Success</button>
-          <span class="text-white" id="thank">{{thank}}</span>
+        </div>
+        <button type="submit" class="btn btn-success">Success</button>
+        <span class="text-white" id="thank">{{thank}}</span>
     </form>
 </div>
 {% endblock %}
@@ -35,12 +35,29 @@
 
 <script>
 
-if (document.getElementById('thank').innerText == 'True'){
-    alert('Thanks for contacting us. We will get back to you soon...!');
-    document.location = "/shop/contact";
-  }
+    // find out the cart items from localStorage
+    if (localStorage.getItem('cart') == null) {
+        var cart = {};
+    }
+    else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        updateCart(cart);
+    }
+
+    function updateCart(cart) {
+        var sum = 0;
+        for (var item in cart) {
+            sum = sum + cart[item][0];
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        document.getElementById('cart').innerHTML = sum;
+    }
+
+    if (document.getElementById('thank').innerText == 'True') {
+        alert('Thanks for contacting us. We will get back to you soon...!');
+        document.location = "/shop/contact";
+    }
 
 </script>
 
 {% endblock %}
-

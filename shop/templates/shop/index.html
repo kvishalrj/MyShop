@@ -24,7 +24,7 @@ bottom: -45px;
 }
 
 .carousel-indicators li{
-  background-color: #7270fc;
+background-color: #7270fc;
 }
 
 .carousel-indicators .active
@@ -82,7 +82,7 @@ padding-right: 0;
               <div class="card-body">
                 <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h5>
                 <p class="card-text">{{i.desc|slice:"0:53"}}...</p>
-                <h6 class="card-title" >Price. <span id="pricepr{{i.id}}">{{i.price}}</span></h6>
+                <h6 class="card-title">Price. <span id="pricepr{{i.id}}">{{i.price}}</span></h6>
                 <span id="divpr{{i.id}}" class="divpr">
                   <button id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</button></span>
                 <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}"
@@ -134,8 +134,8 @@ padding-right: 0;
     }
     else {
       qty = 1;
-      name = document.getElementById('name'+idstr).innerHTML;
-      price = document.getElementById('price'+idstr).innerHTML;
+      name = document.getElementById('name' + idstr).innerHTML;
+      price = document.getElementById('price' + idstr).innerHTML;
       cart[idstr] = [qty, name, parseInt(price)];
     }
     updateCart(cart);
@@ -174,12 +174,12 @@ padding-right: 0;
     cart['pr' + a][0] = cart['pr' + a][0] - 1;
     // cart['pr' + a][0] = Math.max(0, cart['pr' + a][0])
     // document.getElementById('valpr'+a).innerHTML = cart['pr'+a];
-    if (cart['pr'+a][0]==0){
-      delete cart['pr'+a];
-      document.getElementById('divpr'+a).innerHTML = '<button id="pr'+a+'" class="btn btn-primary cart">Add to Cart</button>';
+    if (cart['pr' + a][0] == 0) {
+      delete cart['pr' + a];
+      document.getElementById('divpr' + a).innerHTML = '<button id="pr' + a + '" class="btn btn-primary cart">Add to Cart</button>';
     }
-    else{
-      document.getElementById('divpr'+a).innerHTML = cart['pr'+a][0];
+    else {
+      document.getElementById('divpr' + a).innerHTML = cart['pr' + a][0];
     }
     updateCart(cart)
 
@@ -213,12 +213,12 @@ padding-right: 0;
 
   }
 
- 
-    $('#clearCarttt').click(function () {
-      alert('Vishal');
-      console.log('Viaha');
-    })  
- 
+
+  $('#clearCarttt').click(function () {
+    alert('Vishal');
+    console.log('Viaha');
+  })
+
 
 
 
