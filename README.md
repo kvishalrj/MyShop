@@ -2,7 +2,7 @@
 <b><h1 style="text-align: center;">MyShop</h1></b>
 
 ## Accepting for hacktoberfest 2023
-This repo is about a web app an ecommerce website using Django
+This repo is about an ecommerce website using Django
 
 ## Tech used
 * HTML
