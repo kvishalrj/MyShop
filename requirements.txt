@@ -1,4 +1,4 @@
-﻿absl-py==1.4.0
+absl-py==1.4.0
 anyio==3.6.2
 argon2-cffi==21.3.0
 argon2-cffi-bindings==21.2.0
@@ -146,6 +146,7 @@ pytweening==1.0.7
 pytz==2022.7.1
 PyWavelets==1.4.1
 pywhatkit==5.4
+pywin32==305
 pywinpty==2.0.10
 PyYAML==6.0
 pyzmq==25.0.0
