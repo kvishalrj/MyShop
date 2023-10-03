@@ -59,7 +59,7 @@ You can refer to the following articles on **basics of Git and Github and also c
 <table align="center">
 	<tr >
     <td align="center">
-            <a href="https://github.com/marshadkhn">
+            <a href="https://github.com/kvishalrj">
               <img src="https://avatars.githubusercontent.com/u/102026258?v=4" width="100px" alt=""/><br />
               <sub><b>Vishal Kumar</b></sub>
             </a>
