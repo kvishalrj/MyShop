@@ -20,19 +20,23 @@ cd MyShop
 ```py
 pip install -r requirements.txt
 ```
-5. Create a new branch.
+5. Start local server
+```
+python manage.py runserver
+```
+6. Create a new branch.
 ```css
 git checkout -b <your_branch_name>
 ```
-6. Make changes.
-7. Stage your changes and commit
+7. Make changes.
+8. Stage your changes and commit
 ```css
 git add .
 git commit -m "<your_commit_message>"
 ```
-8. Push your local commits to the remote repo.
+9. Push your local commits to the remote repo.
 ```css
 git push -u origin <your_branch_name>
 ```
-9. Create a Pull Request.
-10. Congratulations! 🎉 you've made your contribution.
+10. Create a Pull Request.
+11. Congratulations! 🎉 you've made your contribution.
