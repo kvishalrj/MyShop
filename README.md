@@ -23,7 +23,6 @@
  <h2 align='center'>This repo is about an ecommerce website using Django
 ⭐</h2>
 
-
 ### Accepting for hacktoberfest 2023
 
 ## Tech used
@@ -34,6 +33,10 @@
 * SQLite
 * Liquid Template
 * Jquery
+* Javascript
+---
+![image](https://github.com/kvishalrj/MyShop/assets/98400348/3671cea6-2f8d-4272-ae6e-cc3d11b88262)
+---
 
 ## 👨‍💻 How to get started ?
 You can refer to the following articles on **basics of Git and Github and also contact the Project Mentors, in case you are stuck**
