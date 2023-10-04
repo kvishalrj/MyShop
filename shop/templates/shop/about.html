@@ -178,3 +178,31 @@
   <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>  
 
 {% endblock %}
+
+{% block js %}
+
+<script>
+
+   // find out the cart items from localStorage
+    if (localStorage.getItem('cart') == null) {
+        var cart = {};
+    }
+    else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        updateCart(cart);
+    }
+
+    function updateCart(cart) {
+        var sum = 0;
+        for (var item in cart) {
+            sum = sum + cart[item][0];
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        document.getElementById('cart').innerHTML = sum;
+    }
+
+</script>
+
+{% endblock %}
+
+
