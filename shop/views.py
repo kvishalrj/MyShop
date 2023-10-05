@@ -5,6 +5,7 @@ from .models import Product, Contact, Orders, OrderUpdate # self ************
 from math import ceil # self ************
 
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -73,6 +74,7 @@ def productView(request, myid):
 def checkout(request):
     if request.method=="POST":
         items_json = request.POST.get('itemsJson'," ")
+        amount = request.POST.get('amount'," ")
         name = request.POST.get('name'," ")
         email = request.POST.get('email'," ")
         address = request.POST.get('address1'," ") + request.POST.get('address2'," ")
@@ -81,7 +83,7 @@ def checkout(request):
         zip_code = request.POST.get('zip_code'," ")
         phone = request.POST.get('phone'," ")
 
-        order = Orders(items_json=items_json, name=name, email=email, address=address, state=state, city=city, zip_code=zip_code, phone=phone)
+        order = Orders(items_json=items_json, amount=amount, name=name, email=email, address=address, state=state, city=city, zip_code=zip_code, phone=phone)
 
         order.save()
         update = OrderUpdate(order_id=order.order_id, update_desc="The order has been placed")
@@ -89,6 +91,13 @@ def checkout(request):
         thank = True
         id = order.order_id
 
-        return render(request, 'shop/checkout.html', {'thank':thank, 'id':id})
+        # return render(request, 'shop/checkout.html', {'thank':thank, 'id':id})
+        # Request Paytm to transfer the amount to your Account after payment by user
 
     return render(request, 'shop/checkout.html')
+
+@csrf_exempt
+def handlerequest(request):
+    # Paytm will send you post request here
+    pass
+
