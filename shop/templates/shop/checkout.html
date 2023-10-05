@@ -29,6 +29,7 @@
     <form class="row g-3" method="post" action="/shop/checkout/">
       {% csrf_token %}
       <input type="hidden" name="itemsJson" id="itemsJson">
+      <input type="hidden" name="amount" id="amount">
       <div class="col-md-6">
         <label for="inputName" class="form-label">Name</label>
         <input type="text" class="form-control" id="inputName" placeholder="Name" name="name">
@@ -113,6 +114,8 @@
     localStorage.clear();
     document.location = "/shop";
   }
+
+  $('#amount').val($('#totalPrice').html())
 
 </script>
 
