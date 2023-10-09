@@ -1,6 +1,30 @@
 from django.db import models
 
 # Create your models here.
+from django.shortcuts import render, redirect
+from .models import Product, Cart
+
+def add_to_cart(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    
+    # Create or get the user's cart (you can implement this logic based on your user model)
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    
+    # Add the product to the cart
+    cart.products.add(product)
+    
+    return redirect('cart')
+
+def remove_from_cart(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    
+    # Get the user's cart
+    cart = Cart.objects.get(user=request.user)
+    
+    # Remove the product from the cart
+    cart.products.remove(product)
+    
+    return redirect('cart')
 
 class Product(models.Model):
     product_id = models.AutoField
