@@ -85,10 +85,13 @@
     })
 
       .done(function (data) {
+        $('#items').empty();
+        $('#citems').empty();
         // console.log(data)
         data = JSON.parse(data);
-        updates = data[0];
-        if (updates.length > 0 & updates != {}) {
+        
+        if (data['status'] == 'success') {
+          updates = data['updates'];
           for (i = 0; i < updates.length; i++) {
             let text = updates[i]['text']
             let time = updates[i]['time']
@@ -96,20 +99,21 @@
             mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">${text}<span class="badge bg-primary rounded-pill">${time}</span></li>`
             $('#items').append(mystr);
           }
+
+          // Fill in the order details
+          cart = JSON.parse(data['itemJson']);
+          console.log(cart);
+          for (item in cart) {
+          let qty = cart[item][0];
+          let name = cart[item][1];
+          mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">${name}<span class="badge bg-primary rounded-pill">${qty}</span></li>`
+          $('#citems').append(mystr);
+          }
+
         } else {
           mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">Sorry! We are unable to fetch this order. Please make sure to enter correct Order Id and Email...`
           $('#items').append(mystr);
         }
-
-        // Fill in the order details
-        cart = JSON.parse(data[1]);
-        console.log(cart);
-        for (item in cart) {
-      let qty = cart[item][0];
-      let name = cart[item][1];
-      mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">${name}<span class="badge bg-primary rounded-pill">${qty}</span></li>`
-      $('#citems').append(mystr);
-    }
 
       });
 
