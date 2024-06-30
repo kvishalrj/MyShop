@@ -15,13 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include #self ***************
-from django.conf import settings #self ***************
-from django.conf.urls.static import static #self ************
+from django.urls import path, include
+from django.conf import settings 
+from django.conf.urls.static import static 
 
-from . import views #self ************
+from . import views 
 
-# self ********************
+admin.site.site_header = "MyShop Admin"
+admin.site.index_title = "Welcome to MyShop Admin Panel"
 
 urlpatterns = [
     path('', views.index),
