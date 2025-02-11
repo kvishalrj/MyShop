@@ -32,7 +32,7 @@
 * Bootstrap
 * SQLite
 * Liquid Template
-* Jquery
+* JQuerY
 * Javascript
 ---
 ![image](https://github.com/kvishalrj/MyShop/assets/98400348/3671cea6-2f8d-4272-ae6e-cc3d11b88262)
